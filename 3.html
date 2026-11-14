@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: lightblue;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 95%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 8px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .dark {
+            background: black;
+            color: white;
+        }
+
+        .dark .box {
+            background: #333;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Registration Form</h2>
+
+    <form onsubmit="return validate()">
+
+        <label>Name:</label>
+        <input type="text" id="name">
+        <p id="e1" class="error"></p>
+
+        <label>Email:</label>
+        <input type="text" id="email">
+        <p id="e2" class="error"></p>
+
+        <label>Password:</label>
+        <input type="password" id="pass">
+        <p id="e3" class="error"></p>
+
+        <label>Age:</label>
+        <input type="number" id="age">
+        <p id="e4" class="error"></p>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p id="msg"></p>
+
+    <hr>
+
+    <h3>DOM Manipulation</h3>
+
+    <button onclick="changeText()">Change Text</button>
+    <p id="text">Welcome to Registration Page</p>
+
+    <button onclick="toggle()">Hide / Show</button>
+
+    <p id="hide">This section can be hidden.</p>
+
+    <button onclick="theme()">Change Theme</button>
+
+    <button onclick="bold()">Bold Text</button>
+
+    <hr>
+
+    <h3>Countdown Timer</h3>
+
+    <p id="timer">10</p>
+
+    <button onclick="start()">Start Timer</button>
+
+</div>
+
+<script>
+
+function validate() {
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("pass").value;
+    let age = document.getElementById("age").value;
+
+    let valid = true;
+
+    document.getElementById("e1").innerHTML = "";
+    document.getElementById("e2").innerHTML = "";
+    document.getElementById("e3").innerHTML = "";
+    document.getElementById("e4").innerHTML = "";
+
+    if (name.trim() == "") {
+        document.getElementById("e1").innerHTML = "Enter name";
+        valid = false;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById("e2").innerHTML = "Enter valid email";
+        valid = false;
+    }
+
+    if (pass.length < 6) {
+        document.getElementById("e3").innerHTML = "Password must be 6 characters";
+        valid = false;
+    }
+
+    if (age < 18 || age == "") {
+        document.getElementById("e4").innerHTML = "Age must be 18 or above";
+        valid = false;
+    }
+
+    if (valid) {
+        document.getElementById("msg").innerHTML =
+        "Registration Successful!";
+    }
+
+    return false;
+}
+
+function changeText() {
+    document.getElementById("text").innerHTML =
+    "Text changed successfully!";
+}
+
+function toggle() {
+    let x = document.getElementById("hide");
+
+    if (x.style.display == "none")
+        x.style.display = "block";
+    else
+        x.style.display = "none";
+}
+
+function theme() {
+    document.body.classList.toggle("dark");
+}
+
+function bold() {
+    document.getElementById("text").style.fontWeight = "bold";
+}
+
+let count = 10;
+
+function start() {
+    count = 10;
+
+    let t = setInterval(function() {
+        document.getElementById("timer").innerHTML = count;
+        count--;
+
+        if (count < 0) {
+            clearInterval(t);
+            document.getElementById("timer").innerHTML = "Time Up!";
+        }
+    }, 1000);
+}
+
+</script>
+
+</body>
+</html>

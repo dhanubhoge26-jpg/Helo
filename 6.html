@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Dashboard</title>
+<style>
+body {
+    text-align: center;
+    font-family: Arial;
+    color: white;
+    background: linear-gradient(120deg, navy, purple);
+}
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border: 0;
+    border-radius: 8px;
+}
+button { background: skyblue; cursor: pointer; }
+button:hover { background: cyan; }
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    border: 1px solid white;
+}
+</style>
+</head>
+<body>
+
+<div id="loginPage">
+    <h2>Admin Login</h2>
+    <input id="username" placeholder="Username"><br>
+    <input id="password" type="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard" style="display:none">
+    <h2>Event Dashboard</h2>
+
+    <input id="eventName" placeholder="Event Name">
+    <input id="eventDate" type="date">
+    <button id="saveBtn" onclick="save()">Add Event</button>
+
+    <table>
+        <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        <tbody id="records"></tbody>
+    </table>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+let events = [];
+let editIndex = -1;
+
+function login() {
+    if(username.value == "admin" && password.value == "1234") {
+        loginPage.style.display = "none";
+        dashboard.style.display = "block";
+    } else {
+        alert("Wrong Login");
+    }
+}
+
+function save() {
+    let name = eventName.value;
+    let date = eventDate.value;
+
+    if(!name || !date)
+        return alert("Fill all fields");
+
+    if(editIndex == -1) {
+        events.push({name, date});
+    } else {
+        events[editIndex] = {name, date};
+        editIndex = -1;
+    }
+
+    eventName.value = "";
+    eventDate.value = "";
+    saveBtn.textContent = "Add Event";
+    display();
+}
+
+function display() {
+    records.innerHTML = "";
+
+    events.forEach((e, i) => {
+        let row = records.insertRow();
+        row.insertCell().textContent = e.name;
+        row.insertCell().textContent = e.date;
+        row.insertCell().innerHTML =
+            `<button onclick="editEvent(${i})">Edit</button>
+             <button onclick="deleteEvent(${i})">Delete</button>`;
+    });
+}
+
+function editEvent(i) {
+    eventName.value = events[i].name;
+    eventDate.value = events[i].date;
+    editIndex = i;
+    saveBtn.textContent = "Update Event";
+}
+
+function deleteEvent(i) {
+    events.splice(i, 1);
+    editIndex = -1;
+    eventName.value = "";
+    eventDate.value = "";
+    saveBtn.textContent = "Add Event";
+    display();
+}
+
+function logout() {
+    dashboard.style.display = "none";
+    loginPage.style.display = "block";
+}
+</script>
+</body>
+</html>

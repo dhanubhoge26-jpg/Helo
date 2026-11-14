@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Explorer</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: lightblue;
+            color: black;
+            text-align: center;
+        }
+
+        .card {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            margin: 10px auto;
+            width: 250px;
+            border-radius: 10px;
+        }
+
+        .card h3, .card p {
+            color: black;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Event Explorer</h1>
+
+<input type="text" id="search"
+placeholder="Search event" onkeyup="display()">
+
+<select id="category" onchange="display()">
+    <option value="All">All Categories</option>
+    <option value="Technical">Technical</option>
+    <option value="Cultural">Cultural</option>
+    <option value="Sports">Sports</option>
+</select>
+
+<input type="date" id="date" onchange="display()">
+
+<select id="sort" onchange="display()">
+    <option value="">Sort By</option>
+    <option value="name">Name</option>
+    <option value="date">Date</option>
+</select>
+
+<div id="events"></div>
+
+<script>
+
+// Array of objects
+let events = [
+    {name: "Hackathon", category: "Technical", date: "2026-12-10"},
+    {name: "Dance Competition", category: "Cultural", date: "2026-12-15"},
+    {name: "Cricket Match", category: "Sports", date: "2026-12-20"},
+    {name: "Coding Contest", category: "Technical", date: "2026-12-25"}
+];
+
+function display() {
+
+    let result = [...events];
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let category = document.getElementById("category").value;
+    let date = document.getElementById("date").value;
+    let sort = document.getElementById("sort").value;
+
+    // Search
+    result = result.filter(e =>
+        e.name.toLowerCase().includes(search)
+    );
+
+    // Category filter
+    if (category != "All") {
+        result = result.filter(e => e.category == category);
+    }
+
+    // Date filter
+    if (date != "") {
+        result = result.filter(e => e.date == date);
+    }
+
+    // Sorting
+    if (sort == "name") {
+        result.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (sort == "date") {
+        result.sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    // Display cards
+    let output = "";
+
+    result.forEach(e => {
+        output += `
+            <div class="card">
+                <h3>${e.name}</h3>
+                <p>Category: ${e.category}</p>
+                <p>Date: ${e.date}</p>
+            </div>
+        `;
+    });
+
+    // No results
+    if (result.length == 0) {
+        output = "<h3>No Results Found</h3>";
+    }
+
+    document.getElementById("events").innerHTML = output;
+}
+
+// Show events initially
+display();
+
+</script>
+
+</body>
+</html>

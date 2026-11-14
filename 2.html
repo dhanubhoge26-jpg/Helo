@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>College Timetable</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: lightblue;
+            margin: 0;
+        }
+
+        header, footer {
+            background: navy;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav, section, aside {
+            background: white;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .layout {
+            display: flex;
+        }
+
+        main {
+            flex: 3;
+            min-width: 0;
+        }
+
+        aside {
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            section {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Computer Engineering Department</h1>
+    </header>
+
+    <nav>
+        <a href="#time">Timetable</a>
+        <a href="#info">Infrastructure</a>
+        <a href="#media">Media</a>
+    </nav>
+
+    <div class="layout">
+
+        <main>
+
+            <section id="time">
+
+                <h2>Class Timetable</h2>
+
+                <table>
+                    <caption>Weekly Timetable</caption>
+
+                    <tr>
+                        <th>Day</th>
+                        <th>9-10</th>
+                        <th>10-11</th>
+                        <th>11-12</th>
+                    </tr>
+
+                    <tr>
+                        <th>Monday</th>
+                        <td>Maths</td>
+                        <td colspan="2">Python Lab</td>
+                    </tr>
+
+                    <tr>
+                        <th>Tuesday</th>
+                        <td>Physics</td>
+                        <td>Maths</td>
+                        <td>English</td>
+                    </tr>
+
+                    <tr>
+                        <th>Wednesday</th>
+                        <td colspan="3">Project</td>
+                    </tr>
+
+                    <tr>
+                        <th>Thursday</th>
+                        <td>Maths</td>
+                        <td>Python</td>
+                        <td>Physics</td>
+                    </tr>
+
+                    <tr>
+                        <th>Friday</th>
+                        <td>English</td>
+                        <td>Maths</td>
+                        <td>Python</td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="2">Saturday</th>
+                        <td>Maths</td>
+                        <td>Python</td>
+                        <td>English</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">Practical Session</td>
+                    </tr>
+
+                </table>
+
+            </section>
+
+            <section>
+                <h2>Div and Span Timetable</h2>
+
+                <div>Monday: <span>Maths, Python Lab</span></div>
+                <div>Tuesday: <span>Physics, Maths, English</span></div>
+                <div>Wednesday: <span>Project</span></div>
+                <div>Thursday: <span>Maths, Python, Physics</span></div>
+                <div>Friday: <span>English, Maths, Python</span></div>
+                <div>Saturday: <span>Maths, Python, Practical</span></div>
+            </section>
+
+            <section id="info">
+
+                <h2>University Infrastructure</h2>
+
+                <ul>
+                    <li>Computer Lab</li>
+                    <li>Library</li>
+                    <li>Smart Classroom</li>
+                </ul>
+
+                <img src="lab.jpg"
+                     alt="Computer Laboratory"
+                     width="200">
+
+            </section>
+
+            <section id="media">
+
+                <h2>Multimedia</h2>
+
+                <video width="250" controls>
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+
+                <p>Audio:</p>
+
+                <audio controls>
+                    <source src="audio.mp3" type="audio/mpeg">
+                    Your browser does not support audio.
+                </audio>
+
+            </section>
+
+        </main>
+
+        <aside>
+            <h2>Facilities</h2>
+            <p>Library, Wi-Fi, Computer Labs</p>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Computer Department</p>
+    </footer>
+
+</body>
+</html>
