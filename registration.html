@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Registration</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#eef3f7;margin:0;padding:25px;color:#243447}
+.container{max-width:680px;margin:auto;background:white;padding:25px;border-radius:10px;box-shadow:0 3px 12px #0001}
+h2{color:#183b66;text-align:center}
+label{display:block;margin-top:12px;font-weight:600}
+input,select,textarea{width:100%;padding:10px;margin-top:5px;border:1px solid #bbb;border-radius:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choice{display:inline-block;margin:8px 16px 0 0;font-weight:normal}
+.choice input{width:auto}
+button{margin-top:20px;padding:11px 20px;background:#1769aa;color:white;border:0;border-radius:5px;cursor:pointer}
+.message{padding:10px;background:#e5f5e9;margin:10px 0;border-radius:5px}
+.error{color:#b42318;font-size:13px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Student Registration Form</h2>
+<p>Fields marked * are required.</p>
+
+{% with messages=get_flashed_messages() %}
+  {% for m in messages %}
+    <div class="message">{{m}}</div>
+  {% endfor %}
+{% endwith %}
+
+<form method="POST">
+<label>Full Name *</label>
+<input type="text" name="name" minlength="3" maxlength="50" required value="{{v.get('name','')}}">
+{% if errors.get('name') %}<div class="error">{{errors.name}}</div>{% endif %}
+
+<div class="grid">
+<div>
+<label>Roll Number *</label>
+<input name="roll_no" required value="{{v.get('roll_no','')}}">
+{% if errors.get('roll_no') %}<div class="error">{{errors.roll_no}}</div>{% endif %}
+</div>
+
+<div>
+<label>Date of Birth *</label>
+<input type="date" name="dob" required value="{{v.get('dob','')}}">
+{% if errors.get('dob') %}<div class="error">{{errors.dob}}</div>{% endif %}
+</div>
+
+<div>
+<label>Email *</label>
+<input type="email" name="email" required value="{{v.get('email','')}}">
+{% if errors.get('email') %}<div class="error">{{errors.email}}</div>{% endif %}
+</div>
+
+<div>
+<label>Phone Number *</label>
+<input type="tel" name="phone" maxlength="10" required value="{{v.get('phone','')}}">
+{% if errors.get('phone') %}<div class="error">{{errors.phone}}</div>{% endif %}
+</div>
+
+<div>
+<label>Department *</label>
+<select name="department" required>
+<option value="">Select Department</option>
+{% for d in departments %}
+<option value="{{d}}" {% if v.get('department')==d %}selected{% endif %}>{{d}}</option>
+{% endfor %}
+</select>
+{% if errors.get('department') %}<div class="error">{{errors.department}}</div>{% endif %}
+</div>
+
+<div>
+<label>Year *</label>
+<select name="year" required>
+<option value="">Select Year</option>
+{% for y in years %}
+<option value="{{y}}" {% if v.get('year')==y %}selected{% endif %}>{{y}}</option>
+{% endfor %}
+</select>
+{% if errors.get('year') %}<div class="error">{{errors.year}}</div>{% endif %}
+</div>
+</div>
+
+<label>Gender *</label>
+{% for g in genders %}
+<label class="choice"><input type="radio" name="gender" value="{{g}}" required {% if v.get('gender')==g %}checked{% endif %}> {{g}}</label>
+{% endfor %}
+{% if errors.get('gender') %}<div class="error">{{errors.gender}}</div>{% endif %}
+
+<label>Hobbies</label>
+<label class="choice"><input type="checkbox" name="hobbies" value="Coding"> Coding</label>
+<label class="choice"><input type="checkbox" name="hobbies" value="Sports"> Sports</label>
+<label class="choice"><input type="checkbox" name="hobbies" value="Music"> Music</label>
+<label class="choice"><input type="checkbox" name="hobbies" value="Reading"> Reading</label>
+
+<label>Address *</label>
+<textarea name="address" rows="3" minlength="10" maxlength="200" required>{{v.get('address','')}}</textarea>
+{% if errors.get('address') %}<div class="error">{{errors.address}}</div>{% endif %}
+
+<label class="choice">
+<input type="checkbox" name="agree" required>
+I confirm that the details above are correct.
+</label>
+{% if errors.get('agree') %}<div class="error">{{errors.agree}}</div>{% endif %}
+
+<button type="submit">Register</button>
+<button type="reset" style="background:#777">Reset</button>
+</form>
+</div>
+</body>
+</html>
